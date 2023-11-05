@@ -5,8 +5,12 @@ import smtplib
 from email.mime.text import MIMEText
 from email.utils import formataddr
 from email.mime.multipart import MIMEMultipart
+from dotenv import load_dotenv
 import gc
+import os
 
+load_dotenv()
+PROCESS_NAME = os.environ['PROCESSNAME']
 
 def catch_process(name):
     for proc in psutil.process_iter():
@@ -22,7 +26,6 @@ def catch_process(name):
         result = None
     return result
 
-
 # FIXME: sned email
 def send_email():
     pass
@@ -30,8 +33,8 @@ def send_email():
 
 def main():
     flag = None
-    while(flag == None):
-        flag = catch_process('CharaStudio.exe')
+    while (flag == None):
+        flag = catch_process(PROCESS_NAME)
         print(flag)
         time.sleep(10)
 
