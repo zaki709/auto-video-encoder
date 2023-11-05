@@ -6,7 +6,6 @@ import datetime
 import psutil
 
 load_dotenv()
-
 FRAMES = os.environ['FRAMES']
 OUTPUT = os.environ['OUTPUT']
 
