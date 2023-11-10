@@ -4,6 +4,7 @@ import ffmpeg
 import shutil
 import datetime
 import psutil
+import time
 
 load_dotenv()
 FRAMES = os.environ['FRAMES']
@@ -37,6 +38,7 @@ def main():
         ffmpeg_encoder(dir_path, dir_name + str(salt))
         delete_frames(dir_path)
         print(get_cpu_usage())
+        time.sleep(300)
         
         
 if __name__ == '__main__':
