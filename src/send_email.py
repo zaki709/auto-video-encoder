@@ -4,7 +4,6 @@ from email.mime.text import MIMEText
 from dotenv import load_dotenv
 import smtplib
 import os
-import datetime
 
 
 def createMIME(subject, content):
