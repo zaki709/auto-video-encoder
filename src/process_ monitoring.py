@@ -1,10 +1,6 @@
 #coding utf-8
 import psutil
 import time
-import smtplib
-from email.mime.text import MIMEText
-from email.utils import formataddr
-from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 import gc
 import os
@@ -25,11 +21,6 @@ def catch_process(name):
     else:
         result = None
     return result
-
-# FIXME: sned email
-def send_email():
-    pass
-
 
 def main():
     flag = None

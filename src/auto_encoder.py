@@ -5,6 +5,7 @@ import shutil
 import datetime
 import psutil
 import time
+from send_email import send_email
 
 load_dotenv()
 FRAMES = os.environ['FRAMES']
@@ -33,12 +34,17 @@ def main():
     # Usage
     dir_names = get_folder_names(FRAMES)
     salt = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
-    for dir_name in dir_names:
-        dir_path = os.path.join(FRAMES, dir_name)
-        ffmpeg_encoder(dir_path, dir_name + str(salt))
-        delete_frames(dir_path)
-        print(get_cpu_usage())
-        time.sleep(300)
+    if dir_names == []:
+        pass
+    else:
+        for dir_name in dir_names:
+            dir_path = os.path.join(FRAMES, dir_name)
+            ffmpeg_encoder(dir_path, dir_name + str(salt))
+            delete_frames(dir_path)
+            print(get_cpu_usage())
+            time.sleep(300)
+
+    send_email(str(datetime.datetime.now().strftime('%Y年%m月%d日 %H:%M:%S')) + "\n \n process type encodeing is done")
         
         
 if __name__ == '__main__':

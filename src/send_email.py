@@ -2,20 +2,17 @@
 import smtplib
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
-from smtplib import SMTP_SSL
+import smtplib
 import os
-import time
-import ssl
+import datetime
 
 
-def createMIME(from_addr, to_addr, subject, content):
+def createMIME(subject, content):
     msg = MIMEText(content, 'plain', 'utf-8')
-    msg['From'] = from_addr
-    msg['To'] = to_addr
     msg['Subject'] = subject
     return msg
 
-def send_email(msg):
+def send_email(msg:str):
     load_dotenv()
     from_addr = str(os.environ['FROM_ADDR'])
     to_addr = str(os.environ['TO_ADDR'])
@@ -23,16 +20,10 @@ def send_email(msg):
     smtp_server = str(os.environ['SMTP_SERVER'])
     smtp_port = int(os.environ['SMTP_PORT'])
 
+    message = createMIME("process is done", msg)
+
     #context = ssl.create_default_context()
     with smtplib.SMTP_SSL(smtp_server, smtp_port) as server:
         server.login(from_addr, password)
-        server.sendmail(from_addr, to_addr, msg)
+        server.sendmail(from_addr, to_addr, message.as_string())
         server.quit()
-
-def main():
-    send_email("hello world!")
-    print("send email successfully!")
-
-if __name__ == "__main__":
-    main()
-    print("check")
