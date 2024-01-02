@@ -71,12 +71,13 @@ def main():
             dir_path = os.path.join(FRAMES, dir_name)
             ffmpeg_encoder(dir_path, dir_name + str(salt))
             delete_frames(dir_path)
+            # check cpu usage
             while True:
                 cpu.get_cpu_usage()
                 if cpu.check_can_use():
                     break
                 else:
-                    time.sleep(10)
+                    time.sleep(1)
 
             
             
